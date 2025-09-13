@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chat - Last minute search</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-header">
+        Last minute search  – Welcome, {{ username }}
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </div>
+
+    <div class="chat-body" id="chat-body"></div>
+
+    <div class="chat-input">
+        <input type="text" id="user-message" placeholder="Type a message...">
+        <button id="send-btn">Send</button>
+    </div>
+</div>
+
+<script>
+function appendMessage(sender, username, text) {
+    const msg = $(`
+        <div class="message ${sender}">
+            <div class="username">${username}</div>
+            <div class="text">${text}</div>
+        </div>
+    `);
+    $('#chat-body').append(msg);
+    $('#chat-body').scrollTop($('#chat-body')[0].scrollHeight);
+}
+
+function showTyping() {
+    const typing = $(`
+        <div class="message bot" id="typing">
+            <div class="username"> Last minute search</div>
+            <div class="text">...</div>
+        </div>
+    `);
+    $('#chat-body').append(typing);
+    $('#chat-body').scrollTop($('#chat-body')[0].scrollHeight);
+}
+
+function removeTyping() {
+    $('#typing').remove();
+}
+
+$('#send-btn').click(function(){
+    const msg = $('#user-message').val().trim();
+    if(msg==='') return;
+    appendMessage('user', '{{ username }}', msg);
+    $('#user-message').val('');
+
+    showTyping();
+
+    $.ajax({
+        url: '/get_response',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({message: msg}),
+        success: function(data){
+            removeTyping();
+            appendMessage('bot', 'Last minute search', data.response);
+        },
+        error: function(err){
+            removeTyping();
+            appendMessage('bot', 'Last minute search', 'Error: '+ (err.responseJSON ? err.responseJSON.error : 'Server error'));
+        }
+    });
+});
+
+$('#user-message').keypress(function(e){
+    if(e.which===13) $('#send-btn').click();
+});
+</script>
+
+</body>
+</html>
