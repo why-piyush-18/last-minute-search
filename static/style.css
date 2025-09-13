@@ -1,0 +1,240 @@
+/* -------- Global -------- */
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    height: 100%;
+    background: #f5f6fa;
+}
+
+/* -------- Login / Signup Form -------- */
+.form-container {
+    background: #ffffff;
+    padding: 50px 40px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    width: 380px;
+    text-align: center;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.form-container h2 {
+    margin-bottom: 30px;
+    color: #0b93f6;
+    font-weight: 700;
+    font-size: 1.6rem;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 14px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 0.95rem;
+    transition: 0.3s;
+}
+
+.form-container input:focus {
+    outline: none;
+    border-color: #0b93f6;
+    box-shadow: 0 0 5px rgba(11,147,246,0.4);
+}
+
+.form-container button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    background: #0b93f6;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-container button:hover {
+    background: #0772d4;
+}
+
+.error {
+    color: #ff4d4f;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.signup-link {
+    margin-top: 15px;
+    font-size: 0.9rem;
+}
+
+.signup-link a {
+    color: #0b93f6;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.signup-link a:hover {
+    text-decoration: underline;
+}
+
+/* -------- Chat Page -------- */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    max-width: 900px;
+    margin: auto;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.chat-header {
+    background: #0b93f6;
+    color: white;
+    padding: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.15rem;
+}
+
+.logout-btn {
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.logout-btn:hover {
+    text-decoration: underline;
+}
+
+.chat-body {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background: #f5f6fa;
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+}
+
+.chat-input input {
+    flex: 1;
+    padding: 18px 15px;
+    border: none;
+    font-size: 1rem;
+    border-radius: 0;
+}
+
+.chat-input button {
+    padding: 0 20px;
+    border: none;
+    background: #0b93f6;
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.chat-input button:hover {
+    background: #0772d4;
+}
+
+/* Messages */
+.message {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+    max-width: 70%;
+}
+
+.message.user {
+    align-self: flex-end;
+    text-align: right;
+}
+
+.message.bot {
+    align-self: flex-start;
+    text-align: left;
+}
+
+.message .username {
+    font-size: 0.75rem;
+    color: #555;
+    margin-bottom: 4px;
+}
+
+.message .text {
+    padding: 12px 18px;
+    border-radius: 25px;
+    font-size: 0.95rem;
+    word-wrap: break-word;
+    display: inline-block;
+}
+
+.message.user .text {
+    background: #0b93f6;
+    color: white;
+    border-radius: 25px 25px 5px 25px;
+}
+
+.message.bot .text {
+    background: #e5e5ea;
+    color: black;
+    border-radius: 25px 25px 25px 5px;
+}
+
+/* Bot Typing Animation */
+#typing .text::after {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    animation: dots 1s steps(5, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: '.'; }
+    40% { content: '..'; }
+    60% { content: '...'; }
+    80%, 100% { content: ''; }
+}
+
+/* Scrollbar */
+.chat-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.chat-body::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 3px;
+}
+
+/* Responsive */
+@media screen and (max-width: 500px) {
+    .form-container {
+        width: 90%;
+        padding: 40px 20px;
+    }
+
+    .chat-container {
+        max-width: 100%;
+    }
+
+    .chat-input input {
+        padding: 15px;
+    }
+}
